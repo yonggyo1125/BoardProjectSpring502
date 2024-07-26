@@ -18,3 +18,10 @@ spring:
   thymeleaf:
     cache: true
     prefix: classpath:/templates/
+
+
+# 파일 업로드 경로 설정
+file:
+  upload:
+    path: /home/ubuntu/uploads
+    url: /upload/
