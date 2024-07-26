@@ -24,6 +24,25 @@ spring:
     livereload:
       enabled: true
 
+  # 정적 자원 설정(CSS, JS, 이미지)
+  web:
+    resources:
+      staticLocations: file:src/main/resources/static/
+
+  # 파일 업로드 용량 설정
+  servlet:
+    multipart:
+      maxFileSize: 20MB
+      maxRequestSize: 60MB
+      fileSizeThreshold: 30MB
+
+
+# 파일 업로드 경로 설정
+file:
+  upload:
+    path: D:/uploads
+    url: /upload/
+
 # 로거 설정
 logging:
   level:
