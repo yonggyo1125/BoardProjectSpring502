@@ -1,0 +1,20 @@
+spring:
+  # JPA 설정
+  jpa:
+    hibernate:
+      ddlAuto: create
+
+  # 라이브 리로드 설정
+  devtools:
+    livereload:
+      enabled: false
+
+  # 정적 자원 설정(CSS, JS, 이미지)
+  web:
+    resources:
+      staticLocations: classpath:/static/
+
+  # 타임리프 설정
+  thymeleaf:
+    cache: true
+    prefix: classpath:/templates/
