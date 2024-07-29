@@ -1,7 +1,7 @@
 package org.choongang.global.validators;
 
 public interface MobileValidator {
-    default boolean checkMobile(String mobile) {
+    default boolean mobileCheck(String mobile) {
         /**
          * 01[016]-0000/000-0000
          * 01[016]-\d{3,4}-\d{4}

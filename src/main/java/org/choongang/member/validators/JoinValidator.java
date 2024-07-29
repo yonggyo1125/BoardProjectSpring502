@@ -1,5 +1,6 @@
 package org.choongang.member.validators;
 
+import org.choongang.global.validators.MobileValidator;
 import org.choongang.global.validators.PasswordValidator;
 import org.choongang.member.controllers.RequestJoin;
 import org.springframework.stereotype.Component;
@@ -7,7 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class JoinValidator implements Validator, PasswordValidator {
+public class JoinValidator implements Validator, PasswordValidator, MobileValidator {
     @Override
     public boolean supports(Class<?> clazz) {
         return clazz.isAssignableFrom(RequestJoin.class);
@@ -43,5 +44,8 @@ public class JoinValidator implements Validator, PasswordValidator {
         }
 
         // 4. 휴대전화번호 형식 체크
+        if (!mobileCheck(mobile)) {
+            errors.rejectValue("mobile", "Mobile");
+        }
     }
 }
