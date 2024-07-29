@@ -17,7 +17,7 @@ spring:
         format_sql: true
         use_sql_comments: true
     hibernate:
-      ddlAuto: create
+      ddlAuto: update
 
   # 라이브 리로드 설정
   devtools:
