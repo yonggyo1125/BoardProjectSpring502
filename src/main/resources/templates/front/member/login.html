@@ -4,5 +4,20 @@
     layout:decorate="~{front/layouts/main}">
     <main layout:fragment="content">
         <h1 th:text="#{로그인}"></h1>
+        <form name="frmLogin" method="POST" th:action="@{/member/login}" autocomplete="off">
+            <dl>
+                <dt th:text="#{이메일}"></dt>
+                <dd>
+                    <input type="text" name="email">
+                </dd>
+            </dl>
+            <dl>
+                <dt th:text="#{비밀번호}"></dt>
+                <dd>
+                    <input type="password" name="password">
+                </dd>
+            </dl>
+            <button type="submit" th:text="#{로그인}"></button>
+        </form>
     </main>
 </html>
