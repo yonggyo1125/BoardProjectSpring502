@@ -3,6 +3,7 @@ package org.choongang.member.services;
 import lombok.RequiredArgsConstructor;
 import org.choongang.member.constants.Authority;
 import org.choongang.member.controllers.RequestJoin;
+import org.choongang.member.entities.Authorities;
 import org.choongang.member.entities.Member;
 import org.choongang.member.repositories.AuthoritiesRepository;
 import org.choongang.member.repositories.MemberRepository;
@@ -37,5 +38,20 @@ public class MemberSaveService {
 
     public void save(Member member, List<Authority> authorities) {
 
+        memberRepository.saveAndFlush(member);
+        // 권한 추가, 수정 S
+        if (authorities != null) {
+            List<Authorities> items = authoritiesRepository.findByMember(member);
+            authoritiesRepository.deleteAll(items);
+            authoritiesRepository.flush();
+
+            items = authorities.stream().map(a -> Authorities.builder()
+                    .member(member)
+                    .authority(a)
+                    .build()).toList();
+
+            authoritiesRepository.saveAllAndFlush(items);
+        }
+        // 권한 추가, 수정 E
     }
 }
