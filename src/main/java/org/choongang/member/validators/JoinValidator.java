@@ -41,5 +41,7 @@ public class JoinValidator implements Validator, PasswordValidator {
         if (!alphaCheck(password, false) || !numberCheck(password) || !specialCharsCheck(password)) {
             errors.rejectValue("password", "Complexity");
         }
+
+        // 4. 휴대전화번호 형식 체크
     }
 }
