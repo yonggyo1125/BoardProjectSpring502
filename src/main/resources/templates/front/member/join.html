@@ -23,6 +23,43 @@
                     <div class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
                 </dd>
             </dl>
+
+            <dl>
+                <dt th:text="#{비밀번호_확인}"></dt>
+                <dd>
+                    <input type="password" name="confirmPassword" th:field="*{confirmPassword}">
+                    <div class="error" th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></div>
+                </dd>
+            </dl>
+
+            <dl>
+                <dt th:text="#{회원명}"></dt>
+                <dd>
+                    <input type="text" name="userName" th:field="*{userName}">
+                    <div class="error" th:each="err : ${#fields.errors('userName')}" th:text="${err}"></div>
+                </dd>
+            </dl>
+
+            <dl>
+                <dt th:text="#{휴대전화번호}"></dt>
+                <dd>
+                    <input type="text" name="mobile" th:field="*{mobile}">
+                    <div class="error" th:each="err : ${#fields.errors('mobile')}" th:text="${err}"></div>
+                </dd>
+            </dl>
+            <div class="terms">
+                <div class="tit" th:text="#{회원가입_약관}"></div>
+                <div class="terms-contents">회원가입 약관...</div>
+
+                <input type="checkbox" name="agree" value="true" id="agree" th:field="*{agree}">
+                <label for="agree" th:text="#{회원가입_약관_동의}"></label>
+
+                <div class="error" th:each="err : ${#fields.errors('agree')}" th:text="${err}"></div>
+            </div>
+            <div class="buttons">
+                <button type="reset" th:text="#{다시입력}"></button>
+                <button type="submit" th:text="#{가입하기}"></button>
+            </div>
         </form>
     </main>
 </html>
