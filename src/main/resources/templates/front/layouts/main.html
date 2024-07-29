@@ -20,6 +20,9 @@
     <th:block layout:fragment="addScript"></th:block>
 </head>
 <body>
-
+    <header th:replace="~{front/outlines/_header::common}"></header>
+    <main layout:fragment="content"></main>
+    <footer th:replace="~{front/outlines/_footer::common}"></footer>
+    <iframe name="ifrmHidden" class="dn"></iframe>
 </body>
 </html>
