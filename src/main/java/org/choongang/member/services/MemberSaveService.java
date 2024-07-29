@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -38,7 +39,15 @@ public class MemberSaveService {
 
     public void save(Member member, List<Authority> authorities) {
 
+        // 휴대전화번호 숫자만 기록
+        String mobile = member.getMobile();
+        if (StringUtils.hasText(mobile)) {
+            mobile = mobile.replaceAll("\\D", "");
+            member.setMobile(mobile);
+        }
+
         memberRepository.saveAndFlush(member);
+
         // 권한 추가, 수정 S
         if (authorities != null) {
             List<Authorities> items = authoritiesRepository.findByMember(member);
