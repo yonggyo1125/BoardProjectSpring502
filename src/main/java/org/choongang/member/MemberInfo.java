@@ -44,7 +44,7 @@ public class MemberInfo implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return false;
     }
 
     @Override

@@ -12,4 +12,7 @@ public class RequestLogin {
     private String password;
 
     private boolean success = true;
+
+    private String code;
+    private String defaultMessage;
 }
