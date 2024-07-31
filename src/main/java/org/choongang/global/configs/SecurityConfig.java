@@ -1,5 +1,7 @@
 package org.choongang.global.configs;
 
+import org.choongang.member.services.LoginFailureHandler;
+import org.choongang.member.services.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,14 +20,15 @@ public class SecurityConfig {
             f.loginPage("/member/login")
                     .usernameParameter("email")
                     .passwordParameter("password")
-                    .successForwardUrl("/")
-                    .failureUrl("/member/login?error=true");
+                    .successHandler(new LoginSuccessHandler())
+                    .failureHandler(new LoginFailureHandler());
         });
 
 
         http.logout(f -> {
            f.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                    .logoutSuccessUrl("/member/login");
+
         });
         /* 로그인, 로그아웃 E */
 
