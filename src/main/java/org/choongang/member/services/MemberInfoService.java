@@ -1,6 +1,7 @@
 package org.choongang.member.services;
 
 import lombok.RequiredArgsConstructor;
+import org.choongang.member.MemberInfo;
 import org.choongang.member.constants.Authority;
 import org.choongang.member.entities.Authorities;
 import org.choongang.member.entities.Member;
@@ -33,6 +34,11 @@ public class MemberInfoService implements UserDetailsService {
                 .toList();
 
 
-        return null;
+        return MemberInfo.builder()
+                .email(member.getEmail())
+                .password(member.getPassword())
+                .member(member)
+                .authorities(authorities)
+                .build();
     }
 }
