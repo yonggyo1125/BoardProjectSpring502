@@ -2,6 +2,7 @@ package org.choongang.member.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.choongang.member.services.MemberSaveService;
 import org.choongang.member.validators.JoinValidator;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
+@Slf4j
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
@@ -55,5 +59,11 @@ public class MemberController {
         }
         
         return "front/member/login";
+    }
+
+    @ResponseBody
+    @GetMapping("/test")
+    public void test(Principal principal) {
+        log.info("로그인 아이디: {}", principal.getName());
     }
 }
