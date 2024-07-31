@@ -6,18 +6,21 @@ import org.choongang.member.services.MemberSaveService;
 import org.choongang.member.validators.JoinValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
+@SessionAttributes("requestLogin")
 public class MemberController {
 
     private final JoinValidator joinValidator;
     private final MemberSaveService memberSaveService;
+
+    @ModelAttribute
+    public RequestLogin requestLogin() {
+        return new RequestLogin();
+    }
 
     @GetMapping("/join")
     public String join(@ModelAttribute RequestJoin form) {
@@ -39,7 +42,7 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(@Valid @ModelAttribute RequestLogin form, Errors errors) {
 
         return "front/member/login";
     }
