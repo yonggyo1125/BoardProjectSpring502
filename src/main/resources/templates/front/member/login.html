@@ -9,14 +9,14 @@
                 <dt th:text="#{이메일}"></dt>
                 <dd>
                     <input type="text" name="email" th:field="*{email}">
-                    <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
+                    <div th:if="*{!success}" class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
                 </dd>
             </dl>
             <dl>
                 <dt th:text="#{비밀번호}"></dt>
                 <dd>
                     <input type="password" name="password" th:field="*{password}">
-                    <div class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
+                    <div th:if="*{!success}" class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
                 </dd>
             </dl>
             <button type="submit" th:text="#{로그인}"></button>

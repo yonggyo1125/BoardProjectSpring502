@@ -10,4 +10,6 @@ public class RequestLogin {
 
     @NotBlank
     private String password;
+
+    private boolean success = true;
 }

@@ -22,6 +22,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         form.setPassword(request.getParameter("password"));
 
 
+        form.setSuccess(false);
         session.setAttribute("requestLogin", form);
 
         // 로그인 실패시 로그인 페이지 이동
