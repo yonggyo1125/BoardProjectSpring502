@@ -5,9 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.choongang.member.controllers.RequestLogin;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.CredentialsExpiredException;
-import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
@@ -31,9 +29,16 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             form.setCode("Disabled.Login");
         } else if (exception instanceof CredentialsExpiredException) { // 비밀번호 유효기간 만료
             form.setCode("CredentialsExpired.Login");
+        } else if (exception instanceof AccountExpiredException) { // 사용자 계정 유효기간 만료
+            form.setCode("AccountExpired.Login");
+        } else if (exception instanceof LockedException) { // 사용자 계정이 잠겨있는 경우
+            form.setCode("Locked.Login");
+        } else {
+            form.setCode("Fail.Login");
         }
 
-        System.out.println(exception);
+        form.setDefaultMessage(exception.getMessage());
+
 
         form.setSuccess(false);
         session.setAttribute("requestLogin", form);
