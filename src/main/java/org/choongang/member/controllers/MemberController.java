@@ -3,8 +3,12 @@ package org.choongang.member.controllers;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.choongang.member.MemberInfo;
 import org.choongang.member.services.MemberSaveService;
 import org.choongang.member.validators.JoinValidator;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -65,5 +69,28 @@ public class MemberController {
     @GetMapping("/test")
     public void test(Principal principal) {
         log.info("로그인 아이디: {}", principal.getName());
+    }
+
+    @ResponseBody
+    @GetMapping("/test2")
+    public void test2(@AuthenticationPrincipal MemberInfo memberInfo) {
+        log.info("로그인 회원: {}", memberInfo.toString());
+    }
+
+    @ResponseBody
+    @GetMapping("/test3")
+    public void test3() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+
+
+        log.info("로그인 상태: {}", authentication.isAuthenticated());
+        if (authentication.isAuthenticated() && authentication.getPrincipal()) { // 로그인 상태 - UserDetails 구현체(getPrincipal())
+          ;
+            MemberInfo memberInfo = (MemberInfo) authentication.getPrincipal();
+           log.info("로그인 회원: {}", memberInfo.toString());
+        } else { // 미로그인 상태 - String / anonymousUser (getPrincipal())
+            log.info("getPrincipal(): {}", authentication.getPrincipal());
+        }
     }
 }
