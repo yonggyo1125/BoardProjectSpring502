@@ -19,6 +19,7 @@
                     <div th:if="*{!success}" class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
                 </dd>
             </dl>
+            <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
             <button type="submit" th:text="#{로그인}"></button>
         </form>
     </main>
