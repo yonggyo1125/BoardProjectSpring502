@@ -32,6 +32,14 @@ public class SecurityConfig {
         });
         /* 로그인, 로그아웃 E */
 
+        /* 인가(접근 통제) 설정 S */
+        http.authorizeHttpRequests(c -> {
+            c.requestMatchers("/mypage/**").authenticated() // 회원 전용
+                    .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                    .anyRequest().permitAll();
+        });
+        /* 인가(접근 통제) 설정 E */
+
         return http.build();
     }
 
