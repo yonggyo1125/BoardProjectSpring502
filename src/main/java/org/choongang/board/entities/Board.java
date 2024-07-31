@@ -16,8 +16,8 @@ import org.choongang.global.entities.BaseMemberEntity;
 public class Board extends BaseMemberEntity {
     @Id
     @Column(length=30)
-    private String bid;
+    private String bId;
 
     @Column(length=60, nullable = false)
-    private String bname;
+    private String bName;
 }
