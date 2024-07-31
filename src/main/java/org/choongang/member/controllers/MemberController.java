@@ -85,8 +85,7 @@ public class MemberController {
 
 
         log.info("로그인 상태: {}", authentication.isAuthenticated());
-        if (authentication.isAuthenticated() && authentication.getPrincipal()) { // 로그인 상태 - UserDetails 구현체(getPrincipal())
-          ;
+        if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof MemberInfo) { // 로그인 상태 - UserDetails 구현체(getPrincipal())
             MemberInfo memberInfo = (MemberInfo) authentication.getPrincipal();
            log.info("로그인 회원: {}", memberInfo.toString());
         } else { // 미로그인 상태 - String / anonymousUser (getPrincipal())
