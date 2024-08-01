@@ -3,6 +3,7 @@ package org.choongang.global.exceptions;
 import jakarta.servlet.http.HttpServletRequest;
 import org.choongang.global.exceptions.script.AlertBackException;
 import org.choongang.global.exceptions.script.AlertException;
+import org.choongang.global.exceptions.script.AlertRedirectException;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,7 +25,11 @@ public interface ExceptionProcessor {
                 String script = String.format("alert('%s');", e.getMessage());
 
                 if (e instanceof AlertBackException alertBackException) {
-                    script += String.format("%s.history.back()", alertBackException.getTarget());
+                    script += String.format("%s.history.back();", alertBackException.getTarget());
+                }
+
+                if (e instanceof AlertRedirectException alertRedirectException) {
+                    script += String.format("%s.location.replace('%s');", alertRedirectException.getTarget(), alertRedirectException.getUrl());
                 }
             }
 
