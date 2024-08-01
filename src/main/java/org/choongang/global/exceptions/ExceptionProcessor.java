@@ -1,6 +1,7 @@
 package org.choongang.global.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.choongang.global.exceptions.script.AlertBackException;
 import org.choongang.global.exceptions.script.AlertException;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
@@ -22,6 +23,9 @@ public interface ExceptionProcessor {
                 tpl = "common/_execute_script";
                 String script = String.format("alert('%s');", e.getMessage());
 
+                if (e instanceof AlertBackException alertBackException) {
+                    script += String.format("%s.history.back()", alertBackException.getTarget());
+                }
             }
 
         }
