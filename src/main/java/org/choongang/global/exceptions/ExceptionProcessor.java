@@ -5,6 +5,7 @@ import org.choongang.global.exceptions.script.AlertBackException;
 import org.choongang.global.exceptions.script.AlertException;
 import org.choongang.global.exceptions.script.AlertRedirectException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +17,8 @@ public interface ExceptionProcessor {
         ModelAndView mv = new ModelAndView();
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR; // 기본 응답 코드 500
         String tpl = "error/error";
+
+
 
         if (e instanceof CommonException commonException) {
             status = commonException.getStatus();
@@ -40,6 +43,8 @@ public interface ExceptionProcessor {
                 mv.addObject("script", script);
             }
 
+        } else if (e instanceof AccessDeniedException) {
+            status = HttpStatus.UNAUTHORIZED;
         }
 
         String url = request.getRequestURI();

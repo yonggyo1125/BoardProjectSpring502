@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.choongang.global.exceptions.ExceptionProcessor;
 import org.choongang.member.services.MemberSaveService;
 import org.choongang.member.validators.JoinValidator;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -61,5 +62,17 @@ public class MemberController implements ExceptionProcessor {
         return "front/member/login";
     }
 
+    @ResponseBody
+    @GetMapping("/test1")
+    @PreAuthorize("isAuthenticated()")
+    public void test1() {
+        log.info("test1 - 회원만 접근 가능");
+    }
 
+    @ResponseBody
+    @GetMapping("/test2")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public void test2() {
+        log.info("test2 - 관리자만 접근 가능");
+    }
 }
