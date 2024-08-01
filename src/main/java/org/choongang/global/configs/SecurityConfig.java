@@ -2,6 +2,7 @@ package org.choongang.global.configs;
 
 import org.choongang.member.services.LoginFailureHandler;
 import org.choongang.member.services.LoginSuccessHandler;
+import org.choongang.member.services.MemberAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,10 +43,14 @@ public class SecurityConfig {
             c.requestMatchers("/mypage/**").authenticated() // 회원 전용
                     .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
                     .anyRequest().permitAll();
+        });
 
-
+        http.exceptionHandling(c -> {
+           c.authenticationEntryPoint(new MemberAuthenticationEntryPoint());
         });
         /* 인가(접근 통제) 설정 E */
+
+
 
         return http.build();
     }
