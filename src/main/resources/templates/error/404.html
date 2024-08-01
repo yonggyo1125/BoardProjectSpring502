@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <body>
-        <div>timestamp : <th:block th:text="${timestamp}"></th:block></div>
-        <div>status : <th:block th:text="${status}"></th:block></div>
-        <div>path : <th:block th:text="${path}"></th:block></div>
-        <div>message : <th:block th:text="${message}"></th:block></div>
-        <div>trace : <th:block th:text="${trace}"></th:block></div>
-    </body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/main}">
+<main layout:fragment="content">
+    <th:block th:replace="~{error/_common::common}"></th:block>
+</main>
 </html>
