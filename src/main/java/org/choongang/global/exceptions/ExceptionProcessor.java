@@ -29,8 +29,15 @@ public interface ExceptionProcessor {
                 }
 
                 if (e instanceof AlertRedirectException alertRedirectException) {
-                    script += String.format("%s.location.replace('%s');", alertRedirectException.getTarget(), alertRedirectException.getUrl());
+                    String url = alertRedirectException.getUrl();
+                    if (!url.startsWith("http")) { // 외부 URL이 아닌 경우
+                        url = request.getContextPath() + url;
+                    }
+
+                    script += String.format("%s.location.replace('%s');", alertRedirectException.getTarget(), url);
                 }
+
+                mv.addObject("script", script);
             }
 
         }
