@@ -34,9 +34,16 @@ public class SecurityConfig {
 
         /* 인가(접근 통제) 설정 S */
         http.authorizeHttpRequests(c -> {
+            /*
+            c.requestMatchers("/member/**").anonymous()
+                    .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                    .anyRequest().authenticated();
+            */
             c.requestMatchers("/mypage/**").authenticated() // 회원 전용
                     .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
                     .anyRequest().permitAll();
+
+
         });
         /* 인가(접근 통제) 설정 E */
 
