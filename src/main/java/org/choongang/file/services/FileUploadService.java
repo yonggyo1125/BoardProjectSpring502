@@ -3,17 +3,23 @@ package org.choongang.file.services;
 import lombok.RequiredArgsConstructor;
 import org.choongang.file.entities.FileInfo;
 import org.choongang.file.repositories.FileInfoRepository;
+import org.choongang.global.configs.FileProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@EnableConfigurationProperties(FileProperties.class)
 public class FileUploadService {
 
     private final FileInfoRepository fileInfoRepository;
+    private final FileProperties properties;
 
     public void upload(MultipartFile[] files, String gid, String location) {
         /**
@@ -40,6 +46,25 @@ public class FileUploadService {
                     .build();
 
             fileInfoRepository.saveAndFlush(fileInfo);
+
+            // 2. 파일을 서버로 이동
+            long seq = fileInfo.getSeq();
+            String uploadDir = properties.getPath() + "/" + (seq % 10L);
+            File dir = new File(uploadDir);
+            if (!dir.exists() || !dir.isDirectory()) {
+                dir.mkdir();
+            }
+
+            String uploadPath = uploadDir + "/" + seq + extension;
+            try {
+                file.transferTo(new File(uploadPath));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                // 파일 이동 실패시 정보 삭제
+                fileInfoRepository.delete(fileInfo);
+                fileInfoRepository.flush();
+            }
         }
     }
 }
