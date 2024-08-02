@@ -29,6 +29,9 @@ public class FileInfo extends BaseMemberEntity {
     @Column(length=80, nullable = false)
     private String fileName;
 
+    @Column(length=30)
+    private String extension; // 파일 확장자
+
     @Column(length=80)
     private String contentType;
 
