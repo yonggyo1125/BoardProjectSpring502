@@ -1,5 +1,6 @@
 package org.choongang.file.services;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.choongang.file.constants.FileStatus;
 import org.choongang.file.entities.FileInfo;
@@ -19,6 +20,7 @@ public class FileInfoService {
 
     private final FileInfoRepository infoRepository;
     private final FileProperties properties;
+    private final HttpServletRequest request;
 
     /**
      * 파일 1개 조회
@@ -60,15 +62,21 @@ public class FileInfoService {
      * @param item
      */
     public void addFileInfo(FileInfo item) {
+        String fileUrl = getFileUrl(item);
+        String filePath = getFilePath(item);
 
+        item.setFileUrl(fileUrl);
+        item.setFilePath(filePath);
     }
 
+    // 브라우저 접근 주소
     public String getFileUrl(FileInfo item) {
-
+        return request.getContextPath() + properties.getUrl() + "/" + getFolder(item.getSeq()) + "/" + getFileName(item);
     }
 
+    // 서버 업로드 경로
     public String getFilePath(FileInfo item) {
-
+        return properties.getPath() + "/" + getFolder(item.getSeq()) + "/" + getFileName(item);
     }
 
     public String getFolder(long seq) {
