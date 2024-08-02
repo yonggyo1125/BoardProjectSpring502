@@ -1,6 +1,8 @@
 package org.choongang.file.services;
 
 import lombok.RequiredArgsConstructor;
+import org.choongang.file.entities.FileInfo;
+import org.choongang.file.repositories.FileInfoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +12,8 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class FileUploadService {
+
+    private final FileInfoRepository fileInfoRepository;
 
     public void upload(MultipartFile[] files, String gid, String location) {
         /**
@@ -25,6 +29,17 @@ public class FileUploadService {
         for (MultipartFile file : files) {
             String fileName = file.getOriginalFilename(); // 업로드 파일 원래 이름
             String contentType = file.getContentType(); // 파일 형식
+            String extension = fileName.substring(fileName.lastIndexOf("."));
+
+            FileInfo fileInfo = FileInfo.builder()
+                    .gid(gid)
+                    .location(location)
+                    .fileName(fileName)
+                    .extension(extension)
+                    .contentType(contentType)
+                    .build();
+
+            fileInfoRepository.saveAndFlush(fileInfo);
         }
     }
 }
