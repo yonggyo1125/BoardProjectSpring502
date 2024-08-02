@@ -5,15 +5,20 @@ import org.choongang.file.constants.FileStatus;
 import org.choongang.file.entities.FileInfo;
 import org.choongang.file.exceptions.FileNotFoundException;
 import org.choongang.file.repositories.FileInfoRepository;
+import org.choongang.global.configs.FileProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@EnableConfigurationProperties(FileProperties.class)
 public class FileInfoService {
 
     private final FileInfoRepository infoRepository;
+    private final FileProperties properties;
 
     /**
      * 파일 1개 조회
@@ -30,6 +35,8 @@ public class FileInfoService {
          * 2. 파일을 접근할 수 있는 PATH - 파일 삭제, 다운로드 등등
          */
 
+        addFileInfo(item);
+
         return item;
     }
 
@@ -44,5 +51,32 @@ public class FileInfoService {
     public List<FileInfo> getList(String gid, String location, FileStatus status) {
 
         return null;
+    }
+
+    /**
+     * 파일 정보 추가 처리
+     * - fileUrl, filePath
+     *
+     * @param item
+     */
+    public void addFileInfo(FileInfo item) {
+
+    }
+
+    public String getFileUrl(FileInfo item) {
+
+    }
+
+    public String getFilePath(FileInfo item) {
+
+    }
+
+    public String getFolder(long seq) {
+        return String.valueOf(seq % 10L);
+    }
+
+    public String getFileName(FileInfo item) {
+        String fileName = item.getSeq() + Objects.requireNonNullElse(item.getExtension(), "");
+        return fileName;
     }
 }
