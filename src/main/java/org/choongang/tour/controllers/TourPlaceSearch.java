@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class TourPlaceSearch {
-    private double latitude;
-    private double longitude;
-    private int radius = 20;
+    private Double latitude;
+    private Double longitude;
+    private Integer radius = 1000;
 }
