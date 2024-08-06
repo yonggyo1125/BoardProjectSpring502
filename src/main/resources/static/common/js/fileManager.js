@@ -8,7 +8,7 @@ const fileManager = {
     * 파일 업로드
     *
     */
-    upload() {
+    upload(files, gid, location) {
 
     },
     /**
@@ -38,6 +38,12 @@ window.addEventListener("DOMContentLoaded", function() {
     for (const el of fileUploads) {
         el.addEventListener("click", function() {
             fileEl.value = "";
+            delete fileEl.gid;
+            delete FileEl.location;
+
+            const dataset = this.dataset;
+            fileEl.gid = dataset.gid;
+            if (dataset.location) fileEl.location = dataset.location;
 
             fileEl.click();
 
@@ -48,7 +54,7 @@ window.addEventListener("DOMContentLoaded", function() {
     // 파일 업로드 처리
     fileEl.addEventListener("change", function(e) {
         const files = e.target.files;
-        console.log(files);
+        fileManager.upload(files, fileEl.gid, fileEl.location);
     });
 
 });
