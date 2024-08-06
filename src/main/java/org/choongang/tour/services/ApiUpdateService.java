@@ -6,12 +6,14 @@ import org.choongang.global.rests.gov.api.ApiResult;
 import org.choongang.tour.entities.TourPlace;
 import org.choongang.tour.repositories.TourPlaceRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -23,26 +25,29 @@ public class ApiUpdateService {
 
     private String serviceKey = "CHrWrFoNSLs09ec0iaNNKpj3VuYnP%2BJA5WAtHyPqdDVCdF%2Fn1NB46%2Bfd2NDjlTiNm%2Fw48BE9guQbOo12k2a6wA%3D%3D";
 
+    @Scheduled(fixedRate = 1L, timeUnit = TimeUnit.DAYS)
     public void update() {
 
         for (int i = 1; i <= 60; i++) {
-            String url = String.format("https://apis.data.go.kr/B551011/KorService1/areaBasedList1?MobileOS=AND&MobileApp=test&numOfRows=1000&pageNo=%d&serviceKey=%s&_type=json", serviceKey, i);
+            String url = String.format("https://apis.data.go.kr/B551011/KorService1/areaBasedList1?MobileOS=AND&MobileApp=test&numOfRows=10&pageNo=%d&serviceKey=%s&_type=json", i, serviceKey);
 
             ResponseEntity<ApiResult> response = null;
             try {
                 response = restTemplate.getForEntity(URI.create(url), ApiResult.class);
             } catch (Exception e) {
+                e.printStackTrace();
                 break;
             }
 
             if (response.getStatusCode().is2xxSuccessful()) {
                 List<ApiItem> items = response.getBody().getResponse().getBody().getItems().getItem();
-
+                System.out.println(response);
                 for(ApiItem item : items) {
                     try {
                         String address = item.getAddr1();
                         address += StringUtils.hasText(item.getAddr2()) ? " " + item.getAddr2() : "";
-
+                        System.out.println("------------------------------");
+                        System.out.println(item);
                         TourPlace tourPlace = TourPlace.builder()
                                 .contentId(item.getContentid())
                                 .contentTypeId(item.getContenttypeid())
@@ -67,12 +72,11 @@ public class ApiUpdateService {
 
                     } catch (Exception e) {
                         // 예외 발생하면 이미 등록된 여행지
+                        e.printStackTrace();
                     }
+
                 }
             } // endif
         }
-
-
-
     }
 }
