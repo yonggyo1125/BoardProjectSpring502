@@ -39,7 +39,7 @@ window.addEventListener("DOMContentLoaded", function() {
         el.addEventListener("click", function() {
             fileEl.value = "";
             delete fileEl.gid;
-            delete FileEl.location;
+            delete fileEl.location;
 
             const dataset = this.dataset;
             fileEl.gid = dataset.gid;
