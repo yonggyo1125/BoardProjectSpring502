@@ -18,6 +18,10 @@
 
     <script th:src="@{/common/js/common.js}"></script>
     <script th:src="@{/front/js/common.js}"></script>
+
+    <script th:if="${addCommonScript != null}" th:each="jsFile : ${addCommonScript}" th:src="@{/common/js/{file}.js(file=${jsFile})}"></script>
+    <th:block layout:fragment="addCommonScript"></th:block>
+
     <script th:if="${addScript != null}" th:each="jsFile : ${addScript}" th:src="@{/front/js/{file}.js(file=${jsFile})}"></script>
     <th:block layout:fragment="addScript"></th:block>
 </head>
