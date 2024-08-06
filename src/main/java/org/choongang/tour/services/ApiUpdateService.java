@@ -6,14 +6,12 @@ import org.choongang.global.rests.gov.api.ApiResult;
 import org.choongang.tour.entities.TourPlace;
 import org.choongang.tour.repositories.TourPlaceRepository;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +23,7 @@ public class ApiUpdateService {
 
     private String serviceKey = "CHrWrFoNSLs09ec0iaNNKpj3VuYnP%2BJA5WAtHyPqdDVCdF%2Fn1NB46%2Bfd2NDjlTiNm%2Fw48BE9guQbOo12k2a6wA%3D%3D";
 
-    @Scheduled(fixedRate = 1L, timeUnit = TimeUnit.DAYS)
+    //@Scheduled(fixedRate = 1L, timeUnit = TimeUnit.DAYS)
     public void update() {
 
         for (int i = 1; i <= 60; i++) {
