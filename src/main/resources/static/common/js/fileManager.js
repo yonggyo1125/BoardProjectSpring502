@@ -9,7 +9,30 @@ const fileManager = {
     *
     */
     upload(files, gid, location) {
+        try {
+            if (!files || files.length == 0) {
+                throw new Error("파일을 선택 하세요.");
+            }
 
+            if (!gid || !gid.trim()) {
+                throw new Error("필수 항목 누락 입니다(gid).");
+            }
+
+            const formData = new FormData();
+            formData.append("gid", gid.trim());
+
+            for (const file of files) {
+                formData.append("file", file);
+            }
+
+            if (location && location.trim()) {
+                formData.append("location", location.trim());
+            }
+
+        } catch (e) {
+            console.error(e);
+            alert(e.message);
+        }
     },
     /**
     * 파일 삭제
@@ -45,7 +68,7 @@ window.addEventListener("DOMContentLoaded", function() {
             fileEl.gid = dataset.gid;
             if (dataset.location) fileEl.location = dataset.location;
 
-            fileEl.click();
+           ` fileEl.click();`
 
         });
     }
@@ -55,6 +78,7 @@ window.addEventListener("DOMContentLoaded", function() {
     fileEl.addEventListener("change", function(e) {
         const files = e.target.files;
         fileManager.upload(files, fileEl.gid, fileEl.location);
+
     });
 
 });
