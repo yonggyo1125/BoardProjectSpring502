@@ -42,7 +42,12 @@ window.addEventListener("DOMContentLoaded", function() {
     function mapProcess(map) {
         // 지도 클릭시 좌표 정보
         kakao.maps.event.addListener(map, 'click', function(e) {
-            console.log(e);
+            const latLng = e.latLng;
+            const marker = new kakao.maps.Marker({
+                position: latLng
+            });
+
+            marker.setMap(map);
         });
     }
 
