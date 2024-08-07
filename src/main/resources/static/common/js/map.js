@@ -19,7 +19,7 @@ const mapLib = {
         mapEl.style.width = `${width}px`;
         mapEl.style.height = `${height}px`;
 
-        let { center, marker } = options;
+        let { center, marker, markerImage } = options;
 
         // 지도 가운데 좌표 처리
         const zoom = options?.zoom ?? 3; // 기본값 3
@@ -35,9 +35,16 @@ const mapLib = {
             if (!Array.isArray(marker)) marker = [marker];
 
             const markers = marker.map(m => {
-                const _marker = new kakao.maps.Marker({
-                    position: new kakao.maps.LatLng(m.lat, m.lng),
-                });
+                const opt = { position: new kakao.maps.LatLng(m.lat, m.lng)};
+
+                // 마커 이미지 처리
+                const mi = markerImage ? markerImage : m.image;
+                if (mi) {
+                    const mImage = new kakao.maps.MarkerImage(mi, new kakao.maps.Size(64, 69), {offset: new kakao.maps.Point(27, 69)});
+                    opt.image = mImage;
+                }
+
+                const _marker = new kakao.maps.Marker(opt);
 
                 _marker.setMap(map);
 
