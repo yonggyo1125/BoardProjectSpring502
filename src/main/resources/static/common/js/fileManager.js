@@ -29,6 +29,10 @@ const fileManager = {
                 formData.append("location", location.trim());
             }
 
+            const { ajaxLoad } = commonLib;
+
+            ajaxLoad('/file/upload', 'POST', formData);
+
         } catch (e) {
             console.error(e);
             alert(e.message);
@@ -68,7 +72,7 @@ window.addEventListener("DOMContentLoaded", function() {
             fileEl.gid = dataset.gid;
             if (dataset.location) fileEl.location = dataset.location;
 
-           ` fileEl.click();`
+            fileEl.click();
 
         });
     }
