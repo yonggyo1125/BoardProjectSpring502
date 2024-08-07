@@ -9,6 +9,19 @@ window.addEventListener("DOMContentLoaded", function() {
     mapEl.style.width = "1000px";
     mapEl.style.height = "600px";
 
+    const map = new kakao.maps.Map(mapEl, {
+        center: new kakao.maps.LatLng(items[0][1], items[0][0]),
+        level: 3,
+    });
+    const markers = items.map(pos => {
+        const position = new kakao.maps.LatLng(pos[1], pos[0]);
+        return new kakao.maps.Marker({position});
+    });
+
+
+    markers.forEach(marker => marker.setMap(map));
+
+    /*
     let map;
 
     navigator.geolocation.getCurrentPosition((pos) => {
@@ -39,6 +52,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
     } // endif
     */
+    /*
     function mapProcess(map) {
         // 지도 클릭시 좌표 정보
         kakao.maps.event.addListener(map, 'click', function(e) {
@@ -50,6 +64,5 @@ window.addEventListener("DOMContentLoaded", function() {
             marker.setMap(map);
         });
     }
-
-
+    */
 });
