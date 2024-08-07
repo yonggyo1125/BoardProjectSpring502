@@ -19,8 +19,9 @@ const mapLib = {
         mapEl.style.width = `${width}px`;
         mapEl.style.height = `${height}px`;
 
-        // 지도 가운데 좌표 처리 S
-        const { center } = options;
+        let { center, marker } = options;
+
+        // 지도 가운데 좌표 처리
         const zoom = options?.zoom ?? 3; // 기본값 3
         const position = new kakao.maps.LatLng(center.lat, center.lng);
         const map = new kakao.maps.Map(mapEl, {
@@ -29,5 +30,21 @@ const mapLib = {
         });
         // 지도 가운데 좌표 처리 E
 
+        // 마커 출력 처리 S
+        if (marker) {
+            if (!Array.isArray(marker)) marker = [marker];
+
+            const markers = marker.map(m => {
+                const _marker = new kakao.maps.Marker({
+                    position: new kakao.maps.LatLng(m.lat, m.lng),
+                });
+
+                _marker.setMap(map);
+
+                return _marker;
+            });
+
+        } // endif
+        // 마커 출력 처리 E
     }
 };
