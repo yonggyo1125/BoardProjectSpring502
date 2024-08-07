@@ -21,13 +21,24 @@ window.addEventListener("DOMContentLoaded", function() {
         });
 
         marker.setMap(map);
+        mapProcess(map);
     });
 
     // 지도 클릭시 좌표 정보
+    /*
     if (map) {
         kakao.maps.event.addListener(map, 'click', function(e) {
             console.log(e);
         });
 
     } // endif
+    */
+    function mapProcess(map) {
+        // 지도 클릭시 좌표 정보
+        kakao.maps.event.addListener(map, 'click', function(e) {
+            console.log(e);
+        });
+    }
+
+
 });
