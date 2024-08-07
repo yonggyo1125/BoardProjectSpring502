@@ -13,6 +13,7 @@ const mapLib = {
         const mapEl = document.getElementById(mapId);
         if (!mapEl || !options?.center) return;
 
+
         mapEl.style.width = `${width}px`;
         mapEl.style.height = `${height}px`;
 
