@@ -14,6 +14,12 @@ window.addEventListener("DOMContentLoaded", function() {
 
         const map = new kakao.maps.Map(mapEl, mapOption);
 
+        const markerPos = new kakao.maps.LatLng(latitude, longitude);
+        const marker = new kakao.maps.Marker({
+           position: markerPos
+        });
+
+        marker.setMap(map);
     });
 
 });
