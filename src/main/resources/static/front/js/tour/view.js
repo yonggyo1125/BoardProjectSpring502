@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", function() {
         const { latitude, longitude } = pos.coords;
 
         const mapOption = {
-            center: new kakao.maps.LatLng(latitude, longitude);
+            center: new kakao.maps.LatLng(latitude, longitude),
             level: 3,
         };
 
