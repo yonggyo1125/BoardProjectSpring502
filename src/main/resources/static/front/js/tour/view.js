@@ -3,6 +3,7 @@ window.addEventListener("DOMContentLoaded", function() {
     mapEl.style.width = "1000px";
     mapEl.style.height = "600px";
 
+    let map;
 
     navigator.geolocation.getCurrentPosition((pos) => {
         const { latitude, longitude } = pos.coords;
@@ -12,7 +13,7 @@ window.addEventListener("DOMContentLoaded", function() {
             level: 3,
         };
 
-        const map = new kakao.maps.Map(mapEl, mapOption);
+        map = new kakao.maps.Map(mapEl, mapOption);
 
         const markerPos = new kakao.maps.LatLng(latitude, longitude);
         const marker = new kakao.maps.Marker({
@@ -22,4 +23,11 @@ window.addEventListener("DOMContentLoaded", function() {
         marker.setMap(map);
     });
 
+    // 지도 클릭시 좌표 정보
+    if (map) {
+        kakao.maps.event.addListener(map, 'click', function(e) {
+            console.log(e);
+        });
+
+    } // endif
 });
