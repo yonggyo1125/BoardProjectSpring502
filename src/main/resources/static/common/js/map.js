@@ -6,8 +6,10 @@ const mapLib = {
     * @param width : 지도 너비
     * @param height: 지도 높이
     * @param options - 옵션
-    *               - center: { lat: 위도, lng: 경도, ... } - 필수
+    *               - center: { lat: 위도, lng: 경도} - 필수
     *               - zoom : 확대 정도(1~10) / 숫자가 작을 수록 확대
+                    - markerImage: 공통 마커 이미지 주소, 개별 마커 이미지가 있는 경우는 그걸로 대체,
+    *               - marker : [{ lat: 위도, lng: 경도, info: html 데이터(인포윈도우), image: 이미지 주소 - 마커이미지}]
     */
     load(mapId, width = 300, height = 300, options) {
         const mapEl = document.getElementById(mapId);
