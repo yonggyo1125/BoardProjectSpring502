@@ -99,13 +99,27 @@ const mapLib = {
     * 키워드로 지도 출력
     *
     */
-    loadByKeyword(keyword, mapId, width = 300, height = 300, options) {
-        if (!keyword) return;
+    loadByKeyword(keyword, cnt = 0, mapId, width = 300, height = 300, options) {
+        if (!keyword?.trim()) return;
 
         const ps = new kakao.maps.services.Places();
+        console.log(keyword);
+        ps.keywordSearch(keyword.trim(), (items, status, pagination) => {
+            if (status === kakao.maps.services.Status.OK) { // 검색 성공
+                // cnt가 0이면 전체 목록, 1 이상이면 갯수 제한
+                items = cnt > 0 ? items.slice(0, cnt + 1) : items;
 
-        ps.keywordSearch('이태원 맛집', (data, status, pagination) => {
+                options = options ?? {};
+                options.center = { lat: items[0].y, lng: items[0].x };
+                options.marker = options?.marker ?? [];
 
+                items.forEach(item => {
+                    options.marker.push({lat: item.y, lng: item.x});
+                });
+
+            } else {
+                alert("검색된 장소가 없습니다.");
+            }
         });
     }
 };

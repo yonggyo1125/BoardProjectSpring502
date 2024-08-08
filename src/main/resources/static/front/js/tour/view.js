@@ -12,7 +12,9 @@ window.addEventListener("DOMContentLoaded", function() {
         ],
         markerImage: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png",
     };
-    mapLib.loadCurrentLocation("map1", 1000, 600, options);
+
+    mapLib.loadByKeyword("양평군 질울고래실마을", "map1", 1000, 600, options);
+    //mapLib.loadCurrentLocation("map1", 1000, 600, options);
     //mapLib.load("map1", 1000, 600, options);
     /*
     mapLib.load("map1", 300, 300, options);
