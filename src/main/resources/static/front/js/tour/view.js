@@ -5,6 +5,7 @@ window.addEventListener("DOMContentLoaded", function() {
             lat: 37.557756188912954,
             lng: 126.94062742683245,
         },
+
         marker: [
             {lat: 37.557756188912954, lng: 126.94062742683245, info: { content: html, clickable: false, removable: true }},
             {lat: 37.557287959390024, lng: 126.94120499658828, info: { content: html, clickable: true, removable: false }},
@@ -13,7 +14,7 @@ window.addEventListener("DOMContentLoaded", function() {
         markerImage: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png",
     };
 
-    mapLib.loadByKeyword("양평군 질울고래실마을", "map1", 1000, 600, options);
+    mapLib.loadByKeyword("제주도 맛집", 1, "map1", 1000, 600, options);
     //mapLib.loadCurrentLocation("map1", 1000, 600, options);
     //mapLib.load("map1", 1000, 600, options);
     /*
