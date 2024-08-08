@@ -156,7 +156,6 @@ const mapLib = {
         if (!category?.trim()) return;
 
         const ps = new kakao.maps.services.Places();
-        console.log(ps);
         ps.categorySearch(category.trim(), placesSearchCB, {useMapBounds:true});
 
         function placesSearchCB (items, status, pagination) {
