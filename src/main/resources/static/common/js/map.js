@@ -60,7 +60,15 @@ const mapLib = {
                     });
 
                     if (clickable) { // 마커 클릭시 노출
-
+                        kakao.maps.event.addListener(_marker, "click", function() {
+                            if (_marker.isInfoWindowOpen) {
+                                infoWindow.close();
+                                _marker.isInfoWindowOpen = false;
+                            } else {
+                                infoWindow.open(map, _marker);
+                                _marker.isInfoWindowOpen = true;
+                            }
+                        });
                     } else { // 바로 노출
                         infoWindow.open(map, _marker);
                     }
@@ -75,5 +83,12 @@ const mapLib = {
 
         } // endif
         // 마커 출력 처리 E
+    },
+    /**
+    * 현재 위치 기반으로 중심위치를 잡고 지도 출력
+    *
+    */
+    loadCurrentLocation(mapId, width = 300, height = 300, options) {
+
     }
 };
