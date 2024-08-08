@@ -156,11 +156,10 @@ const mapLib = {
         if (!category?.trim()) return;
 
         const ps = new kakao.maps.services.Places();
-
+        console.log(ps);
         ps.categorySearch(category.trim(), placesSearchCB, {useMapBounds:true});
 
         function placesSearchCB (items, status, pagination) {
-            console.log(pagination);
             if (status === kakao.maps.services.Status.OK) {
                 // cnt가 0이면 전체 목록, 1 이상이면 갯수 제한
                 items = cnt > 0 ? items.slice(0, cnt + 1) : items;
