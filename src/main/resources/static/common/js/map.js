@@ -94,5 +94,18 @@ const mapLib = {
 
             mapLib.load(mapId, width, height, options);
         });
+    },
+    /**
+    * 키워드로 지도 출력
+    *
+    */
+    loadByKeyword(keyword, mapId, width = 300, height = 300, options) {
+        if (!keyword) return;
+
+        const ps = new kakao.maps.services.Places();
+
+        ps.keywordSearch('이태원 맛집', (data, status, pagination) => {
+
+        });
     }
 };
