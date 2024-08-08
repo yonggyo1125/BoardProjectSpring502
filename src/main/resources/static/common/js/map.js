@@ -116,10 +116,9 @@ const mapLib = {
                 items.forEach(item => {
                     options.marker.push({lat: item.y, lng: item.x});
                 });
-
-            } else {
-                alert("검색된 장소가 없습니다.");
             }
+
+             mapLib.load(mapId, width, height, options);
         });
     }
 };
