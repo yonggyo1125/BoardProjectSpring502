@@ -34,8 +34,9 @@ const mapLib = {
         // 마커 출력 처리 S
         if (marker) {
             if (!Array.isArray(marker)) marker = [marker];
-
+            console.log("marker", marker);
             const markers = marker.map(m => {
+                console.log("m", m);
                 const { lat, lng, image, info } = m;
                 const opt = { position: new kakao.maps.LatLng(lat, lng)};
 
@@ -50,11 +51,11 @@ const mapLib = {
                 const _marker = new kakao.maps.Marker(opt);
 
                 // 인포 윈도우 처리
-                if (info?.html) {
-                    const { html, clickable, removable } = info;
+                if (info?.content) {
+                    const { content, clickable, removable } = info;
 
                     const infoWindow = new kakao.maps.InfoWindow({
-                        content: html,
+                        content,
                         removable: Boolean(removable),
                     });
 
