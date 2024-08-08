@@ -34,9 +34,7 @@ const mapLib = {
         // 마커 출력 처리 S
         if (marker) {
             if (!Array.isArray(marker)) marker = [marker];
-            console.log("marker", marker);
             const markers = marker.map(m => {
-                console.log("m", m);
                 const { lat, lng, image, info } = m;
                 const opt = { position: new kakao.maps.LatLng(lat, lng)};
 
@@ -89,6 +87,12 @@ const mapLib = {
     *
     */
     loadCurrentLocation(mapId, width = 300, height = 300, options) {
+        navigator.geolocation.getCurrentPosition(pos => {
+            const { latitude, longitude } = pos.coords;
+            options = options ?? {};
+            options.center = { lat: latitude, lng: longitude };
 
+            mapLib.load(mapId, width, height, options);
+        });
     }
 };
